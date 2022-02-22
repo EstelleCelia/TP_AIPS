@@ -62,15 +62,16 @@ int main(int argc, char **argv)
     struct sockaddr_in adr_distant; // adresse du socket distant
     unsigned int lg_adr_distant = sizeof(adr_distant);
     struct hostent *hp;
+    struct sockaddr *padr_em;
+    int *plg_adr_em;
     int n_port = atoi(argv[argc - 1]);
     char *host_name = argv[argc - 2];
 
-    char *pmesg;
-    pmesg = (char *)malloc(30 * sizeof(char)); // message à envoyer
-    int lg_message = 30;                       // longueur message à envoyer, 30 par défaut
-    int mesg_emis;
-    int mesg_recu;
-    int lg_max; // espace réservé pour stocker message reçu
+    char *mesg_envoye;
+    char *mesg_recu;
+    mesg_envoye = (char *)malloc(30 * sizeof(char)); // message à envoyer
+    mesg_recu = (char *)malloc(30 * sizeof(char));
+    int lg_message = 30; // longueur message à envoyer, 30 par défaut
 
     // Gestion arguments à l'appel de fonction
     while ((c = getopt(argc, argv, "pn:su")) != -1)
@@ -188,16 +189,16 @@ int main(int argc, char **argv)
             }*/
 
             // Construction message
-            construire_message(pmesg, 'a', lg_message);
+            construire_message(mesg_envoye, 'a', lg_message);
 
             // Envoi message
-            mesg_emis = sendto(sock, pmesg, sizeof(pmesg), 0, (struct sockaddr *)&adr_distant, lg_adr_distant);
-            if (mesg_emis == -1)
+            if ((sendto(sock, mesg_envoye, sizeof(mesg_envoye), 0, (struct sockaddr *)&adr_distant, lg_adr_distant)) == -1)
             {
                 printf("échec envoi message\n");
                 exit(1);
             }
-            afficher_message(pmesg, lg_message);
+
+            afficher_message(mesg_envoye, lg_message);
 
             // destruction socket
             if (close(sock) == -1)
@@ -242,13 +243,14 @@ int main(int argc, char **argv)
             }
 
             // Réception message
-            mesg_recu = recvfrom(sock, pmesg, lg_max, 0, (struct sockaddr *)&adr_local, &lg_adr_local);
-            if (mesg_recu == -1)
+            if ((recvfrom(sock, mesg_recu, lg_message, 0, (struct sockaddr *)&padr_em, plg_adr_em)) == -1)
             {
                 printf("échec réception message\n");
                 exit(1);
             }
-            afficher_message(pmesg, lg_message);
+
+            printf("après réception message \n");
+            afficher_message(mesg_recu, lg_message);
 
             // destruction socket
             if (close(sock) == -1)
