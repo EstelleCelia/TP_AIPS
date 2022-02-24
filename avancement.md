@@ -14,9 +14,9 @@ veuillez cocher les seules cases qui correspondent aux étapes validées.
 
 [x] la création du socket UDP local et la construction de l'adresse du socket distant est correcte
 
-[ ] l’envoi de  messages en utilisant l'appel système sendto (qui retourne une valeur >0 correspondant à la taille de chaque message envoyé) est fonctionnelle 
+[x] l’envoi de  messages en utilisant l'appel système sendto (qui retourne une valeur >0 correspondant à la taille de chaque message envoyé) est fonctionnelle 
 
-[ ] la réception côté puit (sur nc ou la version "enseignant" de tsock) des messages envoyés par votre client est correcte
+[x] la réception côté puit (sur nc ou la version "enseignant" de tsock) des messages envoyés par votre client est correcte
 
 ### Avancement Point sur la partie puit UDP.
 
@@ -24,14 +24,14 @@ veuillez cocher les seules cases qui correspondent aux étapes validées.
 
 [x] la création du socket UDP local du puit et la construction de son adresse est correcte
 
-[x] la réception et l'affichage des messages reçus sont corrects
+[] la réception et l'affichage des messages reçus sont corrects
 
 [ ] l'échange de messages tq décrits dans le cahier des charges entre vos versions source et puit de la version 1 de "tsock" est opérationnel
 
 ## Avancement sur la version 2 de tsock
 La version 2 intègre l’utilisation de TCP pour l’échange des messages. Veuillez renseigner les étapes que vous avez traitées.  
 
-[ ] la création du socket TCP local du puit et la construction de son adresse est correcte
+[x] la création du socket TCP local du puit et la construction de son adresse est correcte
 
 [ ] l'acceptation de la demande d'établissement de connexion de la primitive "accept" est effective 
 
